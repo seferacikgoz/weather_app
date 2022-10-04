@@ -30,6 +30,17 @@ const getWeatherDataFromApi = async() => {
 
     const iconUrlAWS = `https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/${weather[0].icon}.svg`;
 
+    const cityNameSpans = list.querySelectorAll(".city span")
+    const cityNameSpansArray = Array.from(cityNameSpans)
+    if(cityNameSpansArray.lenght > 0){
+        const filteredArray = cityNameSpansArray.filter(span => span.innerText == name)
+        if(filteredArray.lenght > 0){
+            msg.innerText = `You already know the weather for ${name}, Please search for another city `;
+            return;
+        }
+    }
+    console.log(cityNameSpans);
+
     const createdLi = document.createElement("li")
     createdLi.classList.add("city")
     createdLi.innerHTML = `<h2 class="city-name" data-name="${name}, ${sys.country}">
@@ -42,5 +53,8 @@ const getWeatherDataFromApi = async() => {
     <figcaption>${weather[0].description}</figcaption>
 </figure>`;
 
+//* append vs prepend
+list.prepend(createdLi)
+form.reset()
 
 }
