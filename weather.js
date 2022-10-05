@@ -70,17 +70,27 @@ const getWeatherDataFromApi = async () => {
     list.prepend(createdLi);
 
     //* Capturing 
-    createdLi.addEventListener("click", (e) => {
+ /*    createdLi.addEventListener("click", (e) => {
         if(e.target.tagName == "IMG"){
             e.target.src = (e.target.src == iconUrl) ? iconUrlAWS : iconUrl
         }
-    })
+    }) */
     //* Bubbling
     createdLi.addEventListener("click", (e) => {
-        alert(`${e.target.tagName} element is clicked!!`)
+        alert(`Li element is clicked!!`)
         window.location.href = "https://clarusway.com"
     })
 
+    createdLi.querySelector("figure").addEventListener("click", (e) => {
+        alert(`Figure element is clicked!!`)
+        e.stopPropagation()
+        /* window.location.href = "https://clarusway.com" */
+    })
+
+    createdLi.querySelector("img").addEventListener("click", (e) => {
+        alert(`IMG element is clicked!!`)
+        /* window.location.href = "https://clarusway.com" */
+    })
 
   } catch (error) {
     console.log(error);
@@ -92,3 +102,10 @@ const getWeatherDataFromApi = async () => {
   }
   form.reset()
 };
+
+//* windows onload
+document.querySelectorAll(".cities").addEventListener("click", ()=> {
+    if(e.target.className == "removeBtn"){
+        
+    }
+})
