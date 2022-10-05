@@ -27,9 +27,9 @@ const getWeatherDataFromApi = async () => {
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${inputValue}&appid=${tokenKey}&units=${units}&lang=${lang}`;
 
   try {
-    const response = await fetch(url).then((response) => response.json());
+    const response = await axios(url)
     console.log(response);
-    const { main, sys, weather, name } = response;
+    const { main, sys, weather, name } = response.data;
 
     const iconUrl = `http://openweathermap.org/img/wn/${weather[0].icon}@2x.png`;
 
@@ -68,13 +68,27 @@ const getWeatherDataFromApi = async () => {
 
     //* append vs prepend
     list.prepend(createdLi);
-    form.reset();
+
+    //* Capturing 
+    createdLi.addEventListener("click", (e) => {
+        if(e.target.tagName == "IMG"){
+            e.target.src = (e.target.src == iconUrl) ? iconUrlAWS : iconUrl
+        }
+    })
+    //* Bubbling
+    createdLi.addEventListener("click", (e) => {
+        alert(`${e.target.tagName} element is clicked!!`)
+        window.location.href = "https://clarusway.com"
+    })
+
+
   } catch (error) {
     console.log(error);
     msg.innerText = `404 (City Not Found)`;
     setTimeout(() => {
         msg.innerText = ""
     }, 5000)
-    form.reset()
+    
   }
+  form.reset()
 };
