@@ -36,7 +36,10 @@ const getWeatherDataFromApi = async() => {
             const filteredArray = cityNameSpansArray.filter(span => span.innerText == name);
             if (filteredArray.length > 0) {
                 msg.innerText = `You already know the weather for ${name}, Please search for another city 😉`;
-              
+                setTimeout(() => {
+                    msg.innerText = ""
+                }, 5000)
+                form.reset()
                 return;
             }
         }
